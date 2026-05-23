@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry - Interactive Animated Story</title>
+    <link rel="stylesheet" href="story-styles.css">
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+    <div class="rain"></div>
+    <div class="particles"></div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button id="musicToggle" class="music-btn" title="Play/Pause Music">
+            🎵
+        </button>
+        <audio id="bgMusic" loop>
+            <source src="https://aac.saavncdn.com/211/9d2c7a9b1e0e8c7f5d3b2a1c0e7f5d3b_320.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Main Story Container -->
+    <div class="story-container">
+        
+        <!-- SCENE 1: Apology -->
+        <div class="scene scene-1 active">
+            <div class="scene-content">
+                <!-- Male Character Speaking -->
+                <div class="character male-character">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye eye-left">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye eye-right">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="mouth">
+                                <div class="mouth-top"></div>
+                                <div class="mouth-bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body"></div>
+                    <div class="arms">
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
+                    </div>
+                    <div class="legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+
+                <!-- Female Character (Angry) -->
+                <div class="character female-character angry">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye eye-left">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye eye-right">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="mouth">
+                                <div class="mouth-top"></div>
+                                <div class="mouth-bottom"></div>
+                            </div>
+                        </div>
+                        <div class="hair"></div>
+                    </div>
+                    <div class="body"></div>
+                    <div class="arms">
+                        <div class="arm arm-left" id="slappingHand"></div>
+                        <div class="arm arm-right"></div>
+                    </div>
+                    <div class="legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialogue Box -->
+            <div class="dialogue-box">
+                <p class="dialogue-text" id="dialogueText">Roja, I am sorry...</p>
+            </div>
+
+            <!-- Slap Button -->
+            <button class="slap-button" id="slapBtn">
+                <span class="slap-icon">👋</span>
+                <span class="slap-text">SLAP ME</span>
+                <span class="slap-count" id="slapCount">0</span>
+            </button>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p>Click the SLAP button to release your anger! 👋</p>
+            </div>
+
+            <!-- Slap Counter Display -->
+            <div class="slap-counter-display" id="slapCounter">
+                Slaps: <span id="slapNumber">0</span>/10
+            </div>
+        </div>
+
+        <!-- SCENE 2: Running Away -->
+        <div class="scene scene-2">
+            <div class="scene-content running-scene">
+                <!-- Male Character Running -->
+                <div class="character male-character running" id="runningMale">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye eye-left">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye eye-right">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="mouth">
+                                <div class="mouth-top"></div>
+                                <div class="mouth-bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body"></div>
+                    <div class="arms running-arms">
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
+                    </div>
+                    <div class="legs running-legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+
+                <!-- Female Character Chasing -->
+                <div class="character female-character chasing" id="chasingFemale">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye eye-left">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye eye-right">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="mouth">
+                                <div class="mouth-top"></div>
+                                <div class="mouth-bottom"></div>
+                            </div>
+                        </div>
+                        <div class="hair"></div>
+                    </div>
+                    <div class="body"></div>
+                    <div class="arms running-arms">
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
+                    </div>
+                    <div class="legs running-legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dramatic Text -->
+            <div class="dramatic-text">
+                <p>RUN! 🏃💨</p>
+            </div>
+        </div>
+
+        <!-- SCENE 3: Forgiveness -->
+        <div class="scene scene-3">
+            <div class="scene-content">
+                <!-- Male Character (Exhausted) -->
+                <div class="character male-character exhausted">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye eye-left">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye eye-right">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="mouth sad-mouth">
+                                <div class="mouth-top"></div>
+                                <div class="mouth-bottom"></div>
+                            </div>
+                            <div class="tears"></div>
+                        </div>
+                    </div>
+                    <div class="body"></div>
+                    <div class="arms pleading-arms">
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
+                    </div>
+                    <div class="legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+
+                <!-- Female Character (Happy/Forgiving) -->
+                <div class="character female-character happy">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eyes happy-eyes">
+                                <div class="eye eye-left">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye eye-right">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="mouth happy-mouth">
+                                <div class="mouth-top"></div>
+                                <div class="mouth-bottom"></div>
+                            </div>
+                        </div>
+                        <div class="hair"></div>
+                    </div>
+                    <div class="body"></div>
+                    <div class="arms happy-arms">
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
+                    </div>
+                    <div class="legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+
+                <!-- Hearts -->
+                <div class="hearts">
+                    <div class="heart">❤️</div>
+                    <div class="heart">💕</div>
+                    <div class="heart">💖</div>
+                    <div class="heart">💝</div>
+                    <div class="heart">💗</div>
+                </div>
+            </div>
+
+            <!-- Forgiveness Dialogue -->
+            <div class="dialogue-box">
+                <p class="dialogue-text" id="forgiveText">I forgive you... 💕</p>
+            </div>
+
+            <!-- Restart Button -->
+            <button class="restart-button" id="restartBtn">
+                🔄 Watch Again
+            </button>
+        </div>
+    </div>
+
+    <!-- Emotional Effects -->
+    <div class="emotion-effects" id="emotionEffects"></div>
+
+    <script src="story-script.js"></script>
+</body>
+</html>
