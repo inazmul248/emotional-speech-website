@@ -3,271 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Letter of Forgiveness - Interactive Story</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>💔 I'm Sorry - Apology Website</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background -->
     <div class="background"></div>
-    <div class="stars"></div>
-
-    <!-- Music Player -->
-    <div class="music-player">
-        <button id="musicToggle" class="music-btn" title="Play/Pause Music">🎵</button>
-        <audio id="bgMusic" loop>
-            <source src="https://aac.saavncdn.com/211/9d2c7a9b1e0e8c7f5d3b2a1c0e7f5d3b_320.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-    <!-- Main Container -->
+    
     <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">I'm Deeply Sorry</h1>
+            <p class="subtitle">Please listen to what I have to say...</p>
+        </div>
 
-        <!-- ===== SCENE 1: INTRO ===== -->
-        <div class="scene active" id="scene1">
-            <div class="intro-content">
-                <div class="intro-heart">💔</div>
-                <h1 class="intro-title">A Letter</h1>
-                <p class="intro-subtitle">A Story of Forgiveness</p>
-                <div class="intro-divider"></div>
-                <p class="intro-description">An interactive emotional journey...</p>
-                <button class="btn btn-large" onclick="goToScene(2)">Begin The Story</button>
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Canvas for Character -->
+            <div class="character-container">
+                <canvas id="characterCanvas" width="400" height="500"></canvas>
+            </div>
+
+            <!-- Speech Section -->
+            <div class="speech-section">
+                <div class="speech-header">
+                    <h2 id="speechTitle">Part 1: The Responsibility</h2>
+                </div>
+                
+                <div class="speech-text">
+                    <p id="speechContent">Loading...</p>
+                </div>
+
+                <div class="speech-navigation">
+                    <button class="btn btn-nav" id="prevBtn" onclick="previousSpeech()">← Previous</button>
+                    <span class="speech-counter"><span id="currentPart">1</span> / 3</span>
+                    <button class="btn btn-nav" id="nextBtn" onclick="nextSpeech()">Next →</button>
+                </div>
             </div>
         </div>
 
-        <!-- ===== SCENE 2: APOLOGY ===== -->
-        <div class="scene" id="scene2">
-            <div class="scene-header">
-                <h2>His Apology</h2>
-                <p class="part-counter">Part <span id="partNum">1</span> of 9</p>
+        <!-- Interaction Section -->
+        <div class="interaction-section">
+            <div class="damage-bar">
+                <div class="damage-fill" id="damageFill"></div>
+            </div>
+            <p class="damage-text">Anger Level: <span id="damagePercent">0</span>%</p>
+
+            <div class="button-group">
+                <button class="btn btn-slap" id="slapBtn" onclick="slapCharacter()">
+                    👋 SLAP HIM
+                </button>
+                <button class="btn btn-forgive" id="forgiveBtn" onclick="forgiveCharacter()" disabled>
+                    💗 FORGIVE ME
+                </button>
             </div>
 
-            <!-- Characters -->
-            <div class="characters-container">
-                <!-- Male Character -->
-                <div class="character male">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth sad"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😢</div>
-                </div>
-
-                <!-- Female Character -->
-                <div class="character female">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth angry"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😠</div>
-                </div>
-            </div>
-
-            <!-- Dialogue Box -->
-            <div class="dialogue-box">
-                <div class="dialogue-text" id="dialogueText"></div>
-            </div>
-
-            <!-- Controls -->
-            <div class="scene-controls">
-                <button class="btn" id="prevBtn" onclick="previousPart()">← Previous</button>
-                <button class="btn" id="nextBtn" onclick="nextPart()">Next →</button>
-                <button class="btn btn-skip" onclick="goToScene(3)">Skip to Slap</button>
-            </div>
+            <p class="hint">💡 Slap as much as you want, then click Forgive when ready</p>
         </div>
 
-        <!-- ===== SCENE 3: SLAP GAME ===== -->
-        <div class="scene" id="scene3">
-            <div class="scene-header">
-                <h2>She's Angry!</h2>
-                <p class="scene-subtitle">Let Her Release Her Anger 💢</p>
-            </div>
-
-            <!-- Anger Meter -->
-            <div class="anger-section">
-                <div class="anger-label">Her Anger Level: <span id="angerPercent">100</span>%</div>
-                <div class="anger-meter">
-                    <div class="anger-bar" id="angerBar"></div>
-                </div>
-                <div class="anger-text" id="angerText">She's FURIOUS!</div>
-            </div>
-
-            <!-- Slap Characters -->
-            <div class="slap-container">
-                <!-- Male Character (Clickable) -->
-                <div class="character male slappable" id="slapTarget" onclick="getSlapped()">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth sad"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😢</div>
-                </div>
-
-                <!-- Female Character (Slapping) -->
-                <div class="character female slapper">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth angry"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left slap-arm"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😠</div>
-                </div>
-            </div>
-
-            <!-- Slap Messages -->
-            <div class="slap-message" id="slapMessage">Click on him to let her slap!</div>
-            <div class="slap-counter">Slaps: <span id="slapCount">0</span></div>
-
-            <!-- Continue Button -->
-            <button class="btn btn-large" id="continueBtn" onclick="goToScene(4)" disabled>Continue to Chase Scene →</button>
-        </div>
-
-        <!-- ===== SCENE 4: CHASE ===== -->
-        <div class="scene" id="scene4">
-            <div class="scene-header">
-                <h2>The Chase! 🏃💨</h2>
-            </div>
-
-            <!-- Chase Animation Area -->
-            <div class="chase-area">
-                <div class="rain"></div>
-                <!-- Male Character Running -->
-                <div class="character male running" id="runningChar">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs running-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                </div>
-
-                <!-- Female Character Chasing -->
-                <div class="character female chasing" id="chasingChar">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth angry"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs running-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😠</div>
-                </div>
-            </div>
-
-            <!-- Chase Message -->
-            <div class="chase-message" id="chaseMessage">She's running after him! He's trying to escape!</div>
-
-            <!-- Auto Progress -->
-            <button class="btn btn-large" id="chaseNextBtn" onclick="goToScene(5)">Next →</button>
-        </div>
-
-        <!-- ===== SCENE 5: HAPPY ENDING ===== -->
-        <div class="scene" id="scene5">
-            <div class="scene-header">
-                <h2>She Forgives Him! 💖</h2>
-            </div>
-
-            <!-- Falling Hearts -->
-            <div class="hearts-container" id="heartsContainer"></div>
-
-            <!-- Happy Characters -->
-            <div class="characters-container happy-ending">
-                <!-- Male Character Happy -->
-                <div class="character male happy">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth happy"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😊</div>
-                </div>
-
-                <!-- Female Character Happy -->
-                <div class="character female happy">
-                    <div class="char-head"></div>
-                    <div class="char-eyes"></div>
-                    <div class="char-mouth happy"></div>
-                    <div class="char-body"></div>
-                    <div class="char-arms">
-                        <div class="arm-left"></div>
-                        <div class="arm-right"></div>
-                    </div>
-                    <div class="char-legs">
-                        <div class="leg-left"></div>
-                        <div class="leg-right"></div>
-                    </div>
-                    <div class="emotion-icon">😊</div>
-                </div>
-            </div>
-
-            <!-- Ending Message -->
-            <div class="ending-message">
-                <p>"I forgive you... but don't hurt me again."</p>
-                <p>💕 They finally found their way back to each other 💕</p>
-            </div>
-
-            <!-- Buttons -->
-            <div class="scene-controls">
-                <button class="btn btn-large" onclick="goToScene(1)">Start Over</button>
-                <button class="btn btn-large" onclick="endStory()">The End</button>
+        <!-- Victory Screen (Hidden) -->
+        <div class="victory-screen" id="victoryScreen">
+            <div class="victory-content">
+                <h2>💕 YOU FORGAVE ME 💕</h2>
+                <p>Thank you for giving me a chance...</p>
+                <p class="victory-message">I promise to be better for you ❤️</p>
+                <button class="btn btn-restart" onclick="location.reload()">Start Over</button>
             </div>
         </div>
-
-        <!-- Credits -->
-        <footer class="credits">
-            <p>🎵 Music: Tum Hi Ho - Aashiqui 2</p>
-            <p>Made with 💔 and Love</p>
-        </footer>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Audio Elements -->
+    <audio id="backgroundMusic" loop>
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="slapSound">
+        <source src="audio/slap-sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="forgiveSound">
+        <source src="audio/forgive-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="character.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
